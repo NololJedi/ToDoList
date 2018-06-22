@@ -1,1 +1,1 @@
-Simple ToDoList using JavaScript. Made with youtube lessons (https://www.youtube.com/watch?v=2wCpkOk2uCg&list=PLk8jpVUrBVp-4pGJRhFq7r0bx-pKds_GZ).
+Simple ToDo list using JavaScript. Made with youtube lessons (https://www.youtube.com/watch?v=2wCpkOk2uCg&list=PLk8jpVUrBVp-4pGJRhFq7r0bx-pKds_GZ).

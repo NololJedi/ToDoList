@@ -8,11 +8,30 @@ let completeSVG = '<svg version="1.1" xmlns="http://www.w3.org/2000/svg"  x="0px
 let addButton = document.getElementById('add');
 let item = document.getElementById('item');
 let listOfUncompletedTasks = document.getElementById('todo');
+let data = {
+    todo : [],
+    completed : []
+};
+
+/* Render task in desktop. */
+function render() {
+    console.log(data)
+}
 
 /* Delete task from list. */
 function deleteTask() {
     let task = this.parentNode.parentNode;
     let list = task.parentNode;
+    let id = list.id;
+    let value = task.innerText;
+
+    if (id === 'todo'){
+        data.todo.splice(data.todo.indexOf(value), 1);
+    } else {
+        data.completed.splice(data.completed.indexOf(value), 1);
+    }
+
+    render();
     list.removeChild(task);
 }
 
@@ -21,10 +40,21 @@ function completeTask() {
     let task = this.parentNode.parentNode;
     let list = task.parentNode;
     let listId = list.id;
+    let value = task.innerText;
+
+    if (listId === 'todo'){
+        data.todo.splice(data.todo.indexOf(value), 1);
+        data.completed.push(value);
+    } else {
+        data.completed.splice(data.completed.indexOf(value), 1);
+        data.todo.push(value);
+    }
 
     let target = (listId === 'todo') ? document.getElementById('completed') : document.getElementById('todo');
     list.removeChild(task);
     target.insertBefore(task, target.childNodes[0]);
+
+    render();
 }
 
 /* Creates new task in list. */
@@ -36,7 +66,17 @@ function createTask(task){
     itemTask.appendChild(buttons);
 
     listOfUncompletedTasks.insertBefore(itemTask, listOfUncompletedTasks.childNodes[0]);
+    render();
 }
+
+addButton.addEventListener('click', function () {
+    let task = item.value;
+    if (task){
+        data.todo.push(task);
+        createTask(task);
+        item.value = '';
+    }
+});
 
 /* Initialize buttons. */
 function initializeDeleteTaskButton() {
@@ -67,11 +107,3 @@ function initializeButtons() {
 
     return buttons;
 }
-
-addButton.addEventListener('click', function () {
-    let task = item.value;
-    if (task){
-        createTask(task);
-        item.value = '';
-    }
-});
